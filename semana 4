@@ -1,0 +1,26 @@
+-- S04: Operadores lógicos
+-- IS NULL
+SELECT * FROM Empleados WHERE FechaContratacion IS NULL;
+
+-- LIKE
+SELECT * FROM Empleados WHERE Nombre LIKE 'J%';
+
+-- IN
+SELECT * FROM Empleados WHERE ID_Departamento IN (1, 2);
+
+-- BETWEEN
+SELECT * FROM Empleados WHERE Salario BETWEEN 3000 AND 5000;
+
+-- CASE + GROUP BY + HAVING
+SELECT 
+    ID_Departamento,
+    COUNT(*) AS NumEmpleados,
+    AVG(Salario) AS SalarioPromedio,
+    CASE 
+        WHEN AVG(Salario) > 5000 THEN 'Alto'
+        WHEN AVG(Salario) BETWEEN 3000 AND 5000 THEN 'Medio'
+        ELSE 'Bajo'
+    END AS NivelSalario
+FROM Empleados
+GROUP BY ID_Departamento
+HAVING COUNT(*) > 1;
